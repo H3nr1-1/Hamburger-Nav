@@ -1,0 +1,171 @@
+
+/* START - .nav-main */
+/**
+* Nav Element
+* position fixed
+* top left 0
+* line height 0 - remove space between inline elements (button)
+*/
+.nav-main {
+    position: fixed;
+    top: 0;
+    left: 0;
+    line-height: 0;
+}
+
+/**
+ * Nav Main Menu Toggle
+ * Button Element
+ * no background
+ * no border
+ * cursor pointer - show pointer on hover
+ */
+.nav-main-menu-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    line-height: 0;
+}
+
+/** 
+ * SET SVG TRANSFORMS
+ * based on individual elements not SVG box 
+ */
+.nav-main-menu-toggle svg * {
+    transform-box: fill-box;
+}
+
+/** 
+ * HAMBURGER MENU ICON 
+ * 3 RECTANGLES
+ * set transition properties
+ * set transform origin x and y to center
+ * - rotate and translate will be based on center
+ */
+.nav-main-menu-toggle rect:nth-child(1) {
+    transition: all 2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    transform-origin: center;
+}
+
+.nav-main-menu-toggle rect:nth-child(2) {
+    transition: all 2.25s linear;
+    transform-origin: center;
+}
+
+.nav-main-menu-toggle rect:nth-child(3) {
+    transition: all 2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    transform-origin: center;
+}
+
+/**
+ * JAVASCRIPT WILL ADD 
+ * - aria-expanded="true" 
+ * - to .nav-main-menu-toggle 
+ * turn hamburger menu into X
+ * turn units are same as rotate in degrees
+ * scale will make middle rectangle disappear
+ */
+.nav-main-menu-toggle[aria-expanded="true"] rect:nth-child(1) {
+    rotate: 1.125turn;
+    translate: 0 10px;
+}
+
+.nav-main-menu-toggle[aria-expanded="true"] rect:nth-child(2) {
+    scale: 0;
+}
+
+.nav-main-menu-toggle[aria-expanded="true"] rect:nth-child(3) {
+    rotate: -1.125turn;
+    translate: 0 -10px;
+}
+
+/* END - .nav-main-menu-toggle */
+
+/**
+ * Nav Main Menu - the UL
+ * transform translateX -100%
+ * - move off screen
+ * - negative move away from element
+ * - positive move toward element
+ * - translate percentage based on width of element
+ * - not the parent element
+ * position absolute
+ * width 100vw
+ * height 100vh
+ * remove default margin and padding
+ * remove list style
+ * display flex
+ * flex direction column
+ * visibility hidden
+ * - hide menu
+ * - will be shown by javascript
+ * box shadow
+ * clip path will hide shadow on top
+ * - zero pixels will clip shadow at box edge
+ * - negative pixels will extend shadow beyond box edge
+ */
+#nav-main-menu {
+    transform: translateX(-100%);
+    transition: all 1s ease-in-out;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background: hsl(212.45deg 50% 100% / 70%);
+    backdrop-filter: blur(5px);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    visibility: hidden;
+    flex-direction: column;
+    box-shadow: 0px 0px 10px black;
+    clip-path: inset(0px 0px -10px 0px);
+}
+
+/**
+ * Show Nav Main Menu - the UL
+ * :not() selector
+ * if hidden attribute is not present
+ * - show menu
+ * - translateX 0 
+ * - move on screen
+ * transition all properties that change
+ * - duration 1.8 seconds
+ * - ease-in-out timing function
+ */
+#nav-main-menu:not([hidden]) {
+    visibility: visible;
+    transform: translateX(0);
+    transition: all 1.8s ease-in-out;
+}
+
+/**
+ * Anchor Elements
+ * color inherit
+ * - inherit color from parent element
+ * display flex
+ * - can set width and height
+ * - entire element is clickable
+ * line height 3
+ * - 3 times the font size
+ * padding 0 2em left and right
+ * - 2em is 2 times the font size
+ * transition all properties that change
+ * - duration .25 seconds
+ * - ease-in-out timing function
+ */
+#nav-main-menu li a {
+    color: inherit;
+    display: flex;
+    line-height: 3;
+    padding: 0 2em;
+    transition: all .25s ease-in-out;
+}
+
+#nav-main-menu li a:hover,
+#nav-main-menu li a:focus {
+    background: whitesmoke;
+}
+
+/* END - .nav-main */
